@@ -14,7 +14,7 @@ function createNewSpreadSheet(title=null){
 }
 /**
  * Copy a sheet from an existing spreadsheet.
- * @param {Object} fromSs The spreadsheet object from which the copy was made.
+ * @param {string} fromSs The spreadsheet id from which the copy was made.
  * @param {Object} toSs The spreadsheet object to copy to.
  * @param {number} sheetId ID of the sheet to be copied.
  * @return {Object} Newly created sheet object..
