@@ -1,4 +1,27 @@
 /**
+ * If the sheet name specified in the argument does not exist, a new sheet object is created.
+ * @param {string} spreadSheetId The target spreadsheet id.
+ * @param {string} sheetName The target sheet name.
+ * @return {Object} none.
+ */
+function insertSheetBySheetName(spreadSheetId, sheetName){
+  try{
+    Sheets.Spreadsheets.get(spreadSheetId);
+  } catch(error){
+    console.log('The spreadsheet ID is incorrectly specified.');
+    return;
+  }
+  const ss = Sheets.Spreadsheets.get(spreadSheetId);
+  const sheetNameCheck = ss.sheets.map(sheet => sheet.properties.title === sheetName).some(x => x);
+  if (!sheetNameCheck){
+    const targetSs = SpreadsheetApp.openById(spreadSheetId);
+    targetSs.insertSheet(); 
+    targetSs.getActiveSheet().setName(sheetName);
+    targetSs.moveActiveSheet(targetSs.getSheets().length);
+  }
+  return;
+}
+/**
  * Create a new spreadsheet.
  * @param {string} title Spreadsheet name.
  * @return {Object} Spreadsheet object.
